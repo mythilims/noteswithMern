@@ -14,6 +14,10 @@ export const getToken = ()=>{
     return localStorage.getItem('token')
     
 }
+export const getUser = ()=>{
+    return localStorage.getItem('user')
+    
+}
 export const logOut =(link) =>{
      localStorage.clear();
     link('/');

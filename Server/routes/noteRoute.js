@@ -5,20 +5,23 @@ import express from "express";
 const noteRoute = express.Router();
 
 noteRoute.get("/", async (req, res) => {
-  const notes = await Note.find({});
+  console.log(req.query);
+  
+  const notes = await Note.find({userId:req.query.userId}).populate("userId","username email");
   try {
-    res.status(200).json({ data: notes, message: "success", error: "" });
+    res.status(200).json({ data: notes, message: "success", error: "" ,success:true});
   } catch (e) {
-    res.status(500).json({ data: [], message: "", error: "fail" });
+    res.status(500).json({ data: [], message: "", error: "fail",success:false });
   }
 });
 
 noteRoute.post("/", async (req, res) => {
-  const { title, description, category } = req.body;
+  const { title, description, category,userId } = req.body;
   const note = new Note({
     title,
     description,
     category,
+    userId
   });
   try {
     await note.save();
@@ -28,6 +31,7 @@ noteRoute.post("/", async (req, res) => {
       message: "note not added",
       success: false,
       error: "server error",
+      success:false
     });
   }
 });

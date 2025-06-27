@@ -14,10 +14,11 @@ async function validateRegister(req, res, next) {
 async function checkEmailExists(req, res, next) {
   const { email } = req.body;
   let isExisted = await Users.find({ email });
-  console.log(isExisted);
+    console.log(isExisted,'fffff');
+
   try {
     if (isExisted.length>0) {
-      return res.status(400).json("this user already register");
+      return res.status(400).json({error:"this user already register",message:'this user already register',success:false});
     }
     next();
   } catch (e) {

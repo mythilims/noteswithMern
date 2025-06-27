@@ -5,8 +5,13 @@ const secretKey = process.env.JWT_SECRET_KEY;
 const userSchema = new Schema(
   {
     username: { type: String, required: true },
-    email: { type: String, required: true, unique: true },
-    password: { type: String, minLength: 3, maxLength: 6, required: true },
+    email: { type: String, required: [true,'Email is required'], unique: true },
+    password: {
+      type: String,
+      minlength: [3, "Password must be at least 3 characters"],
+      maxlength: [6, "Password cannot exceed 6 characters"],
+      required: [true, "Password is required"],
+    },
   },
   { timestapms: true }
 );
@@ -15,6 +20,7 @@ userSchema.pre("save", async function (next) {
   let users = this;
   try {
     let slat = await bcrypt.genSalt(10);
+    users.plainPassword = users.password;
     users.password = await bcrypt.hash(users.password, slat);
     next();
   } catch (e) {

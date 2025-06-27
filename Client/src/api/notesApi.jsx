@@ -1,10 +1,12 @@
 
-import {server_url,headers} from '../Utility/common';
+import {server_url,headers, getUser} from '../Utility/common';
+
 export const getNotes  =async(url) =>{
-   console.log(await headers());
-   
+       let user =await getUser();
+    let userId=JSON.parse(user).id;
+
     try{
-       let data  =await fetch(server_url+url,{
+       let data  =await fetch(server_url+url+'?userId='+userId,{
         method:'GET',
         headers: await headers()
        });

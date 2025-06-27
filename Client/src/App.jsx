@@ -1,16 +1,18 @@
-import { Route, Routes ,BrowserRouter} from "react-router-dom";
-import Login from "./pages/Login";
-import NotesList from "./pages/NotesList";
-import ProtectedRoute from "./ProtectedRoute/ProtectedRoute";
+import{ Route, Routes ,BrowserRouter} from "react-router-dom";
+import React, { Suspense } from 'react';
+import Loading from "./components/Loading";
+const Login=React.lazy(()=> import ("./pages/Login"));
+const NotesList = React.lazy(()=>import ("./pages/NotesList"));
+const ProtectedRoute =React.lazy(()=>import ("./ProtectedRoute/ProtectedRoute"));
 
 function App() {
   return (
+    <>
+    <Suspense fallback={<Loading />}>
     <BrowserRouter>
     <Routes>
-      {/* Login Page */}
       <Route path="/" element={<Login />} />
 
-      {/* Protected Notes Dashboard */}
       <Route
         path="/notesDashboard"
         element={
@@ -21,6 +23,8 @@ function App() {
       />
     </Routes>
     </BrowserRouter>
+    </Suspense>
+    </>
   );
 }
 

@@ -4,6 +4,7 @@
 
 /* Optional: Add custom styles in the components layer */
 @layer components {
+ 
   .login_bg_color {
         @apply bg-[#3674B5]
 
@@ -32,4 +33,9 @@
     @apply p-4 rounded-xl shadow-lg bg-white;
   }
 }
+:root {
+  --comom_color :[#3674B5]
+}
+
+
 
