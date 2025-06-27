@@ -12,6 +12,7 @@ const protectedApi = (req, res, next) => {
   try {
     let token = jsonToken.verify(decode, mySceretKey);
     res.token = token;
+    
      next();
   } catch (e) {
     if (jsonToken.JsonWebTokenError) {
