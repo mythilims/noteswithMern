@@ -1,0 +1,72 @@
+ <div className="flex justify-center items-center h-screen bg-[#0b1120] text-white">
+        <form
+          onSubmit={handleSubmit(onSubmit)}
+          className="w-full max-w-sm rounded-sm shadow-lg bg-white text-black sm:px-3 sm:py-2 md:px-6 md:py-4 px-6 py-4"
+        >
+          <div className="flex flex-row justify-evenly items-center text-white mb-4">
+            <button
+              type="button"
+              title="click and Login"
+              onClick={() => setActive("Login")}
+              className={`flex-1 py-2 rounded-l-sm font-semibold transition duration-300 ${
+                isActive === "Login"
+                  ? "bg-[#ffa400]"
+                  : "bg-[#ff8800] hover:bg-[#ffa400]"
+              }`}
+            >
+              LOGIN
+            </button>
+            <button
+              type="button"
+              title="click and Signup"
+              onClick={() => setActive("Signup")}
+              className={`flex-1 py-2 rounded-r-sm font-semibold transition duration-300 ${
+                isActive === "Signup"
+                  ? "bg-[#ff8800]"
+                  : "bg-[#ffa400] hover:bg-[#ff8800]"
+              }`}
+            >
+              SIGNUP
+            </button>
+          </div>
+
+          <h2 className="text-center font-semibold p-1 sm:text-sm md:text-2xl">
+            {isActive}
+          </h2>
+          {isActive !== "Login" && (
+            <InputField
+              type="text"
+              label="Username"
+              field="username"
+              register={register}
+              name="username"
+              id="username"
+            />
+          )}
+          <InputField
+            type="email"
+            label="Email"
+            field="email"
+            name="email"
+            id="email"
+            register={register}
+          />
+          <InputField
+            type="password"
+            label="Password"
+            field="Password"
+            name="password"
+            id="password"
+            register={register}
+          />
+
+          <div className="flex justify-center flex-wrap">
+            <button
+              type="submit"
+              className="bg-[#ffa400] sm:px-3  md:px-6 py-2 rounded-sm shadow-lg hover:bg-[#ff8800] text-white font-semibold"
+            >
+              {isActive}
+            </button>
+          </div>
+        </form>
+      </div>

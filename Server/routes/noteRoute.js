@@ -1,0 +1,67 @@
+import isValidId from "../middlewares/collectionIdCheck.js";
+import Note from "../models/notesModal.js";
+
+import express from "express";
+const noteRoute = express.Router();
+
+noteRoute.get("/", async (req, res) => {
+  const notes = await Note.find({});
+  try {
+    res.status(200).json({ data: notes, message: "success", error: "" });
+  } catch (e) {
+    res.status(500).json({ data: [], message: "", error: "fail" });
+  }
+});
+
+noteRoute.post("/", async (req, res) => {
+  const { title, description, category } = req.body;
+  const note = new Note({
+    title,
+    description,
+    category,
+  });
+  try {
+    await note.save();
+    res.status(200).json({ message: "note added", success: true, error: "" });
+  } catch (e) {
+    res.status(500).json({
+      message: "note not added",
+      success: false,
+      error: "server error",
+    });
+  }
+});
+
+noteRoute.put("/:id", isValidId,async (req, res) => {
+  const { body, params } = req;
+  const updateNotes = await Note.findOneAndUpdate(
+    { _id: params.id },
+    { $set: body },
+    { new: true }
+  );
+  try {
+    res.status(200).json({ message: "updated", data: updateNotes });
+  } catch (e) {
+    res.status(500).json({ message: "", error: e });
+  }
+});
+
+noteRoute.get("/:id", isValidId,async (req, res) => {
+  try {
+    const notes = await Note.findById(req.params.id);
+    res.status(200).json({ data: notes, message: "success", error: "" });
+  } catch (e) {
+    res.status(500).json({ data: [], message: "", error: "fail" });
+  }
+});
+
+noteRoute.delete("/:id", isValidId,async (req, res) => {
+  await Note.findOneAndDelete({ _id: req.params });
+  try {
+    res.status(200).json({ message: "note deleted" });
+  } catch (e) {
+    res.status(500).json({ message: " deleted fail" });
+  }
+});
+
+export default noteRoute;

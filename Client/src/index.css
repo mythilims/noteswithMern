@@ -1,0 +1,35 @@
+@import "tailwindcss";
+
+ 
+
+/* Optional: Add custom styles in the components layer */
+@layer components {
+  .login_bg_color {
+        @apply bg-[#3674B5]
+
+  }
+  .login_bg_bt_color{
+    @apply bg-[#578FCA]
+  }
+  .nav_bg_color{
+    @apply bg-[#3674B5]
+  }
+   .content_bg_color{
+    @apply bg-[#578FCA]
+  }
+  .card_bg_color {
+    @apply bg-[#FDFAF6]
+  }
+  .card_bg_hover_color {
+    @apply bg-[#ADB2D4]
+  }
+  #eeefe0
+  .btn-primary {
+    @apply bg-[#ffbd39] text-white  rounded hover:bg-[#0a66c2] py-2 w-full hover:bg-blue-700 text-white font-semibold py-2 rounded-lg transition duration-300;
+  }
+
+  .card {
+    @apply p-4 rounded-xl shadow-lg bg-white;
+  }
+}
+
